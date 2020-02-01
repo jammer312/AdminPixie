@@ -31,5 +31,6 @@ void onRender( CSprite@ this )
 
     IEffectMode@ mode;
     blob.get("mode",@mode);
-    mode.render(this,scale);
+    if(mode !is null)
+        mode.render(this,scale);
 }
