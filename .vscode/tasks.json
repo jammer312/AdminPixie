@@ -1,0 +1,27 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "run localhost",
+            "type": "shell",
+            "command": "Stop-Process -Name 'KAG' -Force; cd C:/Users/Zable/Documents/dev/KAG; start runlocalhost.bat ",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "run dedicated",
+            "type": "shell",
+            "command": "Stop-Process -Name 'KAG' -Force; cd c:/Users/Zable/Documents/dev/KAG; start dedicatedserver.bat; start KAG.exe -Args 'nolauncher'",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": []
+        }
+    ]
+}
