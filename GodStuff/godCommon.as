@@ -102,17 +102,16 @@ class Force : IEffectMode
 
 
 				//Colour
-				// SColor col = particle.colour;
-				// col.setGreen(col.getGreen() - 1);
-				// col.setBlue(col.getBlue() + 1);
+				SColor col = particle.colour;
+				//col.setGreen();
+				col.setRed(col.getRed() + (255 - col.getRed()) * 0.025);
 
 				//set stuff
-				// particle.colour = col;
-				// particle.forcecolor = col;
+				particle.colour = col;
+				particle.forcecolor = col;
 				particle.gravity = tempGrav / 50;//tweak the 20 till your heart is content
 
 				//particleList[a] = @particle;
-
 			}
 		}
 		if(blob.getPlayer() !is null && getLocalPlayer() is blob.getPlayer())
