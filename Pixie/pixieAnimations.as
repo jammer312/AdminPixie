@@ -73,6 +73,6 @@ void onTick(CSprite@ this)
     {
         b.set_f32("soft_frame",0);
     }
-
-    this.SetFrame(softframe);
+    b.set_u16("frame",softframe);
+    this.SetFrame(b.get_u16("frame"));
 }
