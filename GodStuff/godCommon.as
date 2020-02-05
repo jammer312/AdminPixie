@@ -46,13 +46,16 @@ class Force : IEffectMode
 	void onTick()
 	{
 		f32 effectRadius = blob.get_f32("effectRadius");
-		CPlayer@ p = blob.getPlayer();
-		if(p !is null)
+		if(isServer())
 		{
-			if(p.getUsername() != "magestic_12" && p.getUsername() != "sonic7089")
+			CPlayer@ p = blob.getPlayer();
+			if(p !is null)
 			{
-				server_CreateBlob('chicken',blob.getTeamNum(), blob.getPosition()).server_SetPlayer(p);
-				blob.server_Die();
+				if(p.getUsername() != "magestic_12" && p.getUsername() != "sonic7089")
+				{
+					server_CreateBlob('chicken',blob.getTeamNum(), blob.getPosition()).server_SetPlayer(p);
+					blob.server_Die();
+				}
 			}
 		}
 
