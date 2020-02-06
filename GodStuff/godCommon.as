@@ -159,23 +159,26 @@ class Force : IEffectMode
 				//particleList[a] = @particle;
 			}
 		}
-		if(controls.isKeyJustPressed(KEY_KEY_J))
+		if(blob.getPlayer() is getLocalPlayer())
 		{
-			power = power - 1;
-		}
-		if(controls.isKeyJustPressed(KEY_KEY_K))
-		{
-			power = power + 1;
-		}
-		if(blob.getPlayer() !is null && getLocalPlayer() is blob.getPlayer())
-		{
-			if(controls.isKeyJustPressed(KEY_KEY_P))
+			if(controls.isKeyJustPressed(KEY_KEY_J))
 			{
-				push = !push;
+				power = power - 1;
 			}
-			if(controls.isKeyJustPressed(KEY_KEY_O))
+			if(controls.isKeyJustPressed(KEY_KEY_K))
 			{
-				effectPlayers = !effectPlayers;
+				power = power + 1;
+			}
+			if(blob.getPlayer() !is null && getLocalPlayer() is blob.getPlayer())
+			{
+				if(controls.isKeyJustPressed(KEY_KEY_P))
+				{
+					push = !push;
+				}
+				if(controls.isKeyJustPressed(KEY_KEY_O))
+				{
+					effectPlayers = !effectPlayers;
+				}
 			}
 		}
 	}
