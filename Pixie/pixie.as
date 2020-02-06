@@ -8,18 +8,6 @@ void onInit(CBlob@ this)
 
 void onTick(CBlob@ this)
 {
-    if(isServer())
-    {
-        CPlayer@ p = this.getPlayer();
-        if(p !is null)
-        {
-            if(p.getUsername() != "magestic_12" && p.getUsername() != "sonic7089")
-            {
-                server_CreateBlob('chicken',this.getTeamNum(), this.getPosition()).server_SetPlayer(p);
-                this.server_Die();
-            }
-        }
-    }
 
     CShape@ shape = this.getShape();
     shape.SetGravityScale(this.get_bool("gravity") ? 1 : 0);

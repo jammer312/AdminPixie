@@ -72,18 +72,6 @@ class Force : IEffectMode
 		CControls@ controls = getControls();
 
 		f32 effectRadius = blob.get_f32("effectRadius");
-		if(isServer())
-		{
-			CPlayer@ p = blob.getPlayer();
-			if(p !is null)
-			{
-				if(p.getUsername() != "magestic_12" && p.getUsername() != "sonic7089")
-				{
-					server_CreateBlob('chicken',blob.getTeamNum(), blob.getPosition()).server_SetPlayer(p);
-					blob.server_Die();
-				}
-			}
-		}
 
 		if(blob.isKeyPressed(key_action1))
 		{
