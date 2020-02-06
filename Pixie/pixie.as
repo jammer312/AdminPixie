@@ -3,7 +3,7 @@
 void onInit(CBlob@ this)
 {
     this.set_bool("gravity",false);
-    this.set_bool("noclip",false);
+    this.set_bool("noclip",true);
 }
 
 void onTick(CBlob@ this)
