@@ -80,17 +80,18 @@ void onTick(CSprite@ this)
 void onRender(CSprite@ this)
 {
     f32 scale = 1;
+    Vec2f mpos = getControls().getMouseScreenPos();
     CBlob@ blob = this.getBlob();
     if(getLocalPlayer() is blob.getPlayer())
     {
-        int width = 93;
+        int width = 93 * 2;
         int height = 44;
         int teamNum = blob.getTeamNum();
 
         Vec2f checkbox1 = Vec2f(57,8) * scale;
         Vec2f checkbox2 = Vec2f(57,26) * scale;
 
-        Vec2f mainPos = Vec2f(20, 20);
+        Vec2f mainPos = Vec2f(getScreenWidth() - width * scale - 20, 20);
         GUI::DrawIcon("MainGui.png",0, Vec2f(width,height), mainPos, scale, teamNum);
 
         if(!blob.get_bool("noclip"))
