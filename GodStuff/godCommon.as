@@ -79,8 +79,8 @@ class Force : CEffectMode
 		CControls@ controls = getControls();
 
 		f32 effectRadius = blob.get_f32("effectRadius");
-
-		if(blob.isKeyPressed(key_action1))
+		bool dir = blob.isKeyPressed(key_action2) ? !push : push;
+		if(blob.isKeyPressed(key_action1) || blob.isKeyPressed(key_action2))
 		{
 			CBlob@[] blobs;
 			CMap@ map = getMap();
@@ -95,13 +95,13 @@ class Force : CEffectMode
 				Vec2f norm = pos - aimPos;
 				norm.Normalize();
 
-				if(power == 11 && !push)
+				if(power == 11 && !dir)
 				{
 					cblob.setPosition(aimPos);
 				}
 				else
 				{
-					cblob.setVelocity(cblob.getVelocity() + (norm * (power/11 * 2)) * (push ? 1 : -1));
+					cblob.setVelocity(cblob.getVelocity() + (norm * (power/11 * 2)) * (dir ? 1 : -1));
 				}
 			}
 
@@ -138,7 +138,7 @@ class Force : CEffectMode
 				tempGrav.x = particle.position.x - blob.getAimPos().x;
 				tempGrav.y = particle.position.y - blob.getAimPos().y;
 
-				tempGrav *= (push ? power/11 : -(power/11)) * 2;
+				tempGrav *= (dir ? power/11 : -(power/11)) * 2;
 
 
 				//Colour
@@ -146,7 +146,7 @@ class Force : CEffectMode
 				//col.setGreen();
 				col.setRed(col.getRed() + (255 - col.getRed()) * 0.025);
 
-				if(power == 11 && !push)
+				if(power == 11 && !dir)
 				{
 					tempGrav *= 50;
 
