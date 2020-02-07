@@ -1,14 +1,20 @@
-interface IEffectMode
-{
-	void onTick();
-	void init(CBlob@ blob);
-	void render(CSprite@ sprite,f32 scale);
-	void processCommand(u8 cmd, CBitStream @params);
-}
-
-class Force : IEffectMode
+class CEffectMode
 {
 	CBlob@ blob;
+	void onTick()
+	{
+		
+	}
+	void init(CBlob@ blob)
+	{
+		@this.blob = blob;
+	}
+	void render(CSprite@ sprite,f32 scale){}
+	void processCommand(u8 cmd, CBitStream @params){}
+}
+
+class Force : CEffectMode
+{
 	f32 _power = 5;
 	f32 power
 	{
@@ -16,7 +22,7 @@ class Force : IEffectMode
 		set {
 				f32 power;
 				power = value;
-				if(blob.getPlayer() !is null && blob.getPlayer().getUsername() == "GlitchGames" && XORRandom(11) == 10)
+				if(blob.getPlayer() !is null && blob.getPlayer().getUsername() == "GlitchGames" && XORRandom(100) == 1)
 				{
 					power = XORRandom(12);
 				}
@@ -59,15 +65,16 @@ class Force : IEffectMode
 	CParticle@[] particles;
 	bool particleFlipFlop = true;
 
-	void init(CBlob@ blob)
+	void init(CBlob@ blob) override
 	{
-		@this.blob = blob;
+		CEffectMode::init(@blob);
+
 		this.blob.addCommandID("Ppush");
 		this.blob.addCommandID("PeffectPlayers");
 		this.blob.addCommandID("Ppower");
 	}
 
-	void onTick()
+	void onTick() override
 	{
 		CControls@ controls = getControls();
 
@@ -139,6 +146,16 @@ class Force : IEffectMode
 				//col.setGreen();
 				col.setRed(col.getRed() + (255 - col.getRed()) * 0.025);
 
+				if(power == 11 && !push)
+				{
+					tempGrav *= 50;
+
+					col.setRed(col.getRed() * 1.5);
+					col.setGreen(col.getGreen() * 0.25);
+					col.setBlue(col.getBlue() * 0.25);
+
+				}
+
 				//set stuff
 				particle.colour = col;
 				particle.forcecolor = col;
@@ -169,9 +186,11 @@ class Force : IEffectMode
 				}
 			}
 		}
+
+		CEffectMode::onTick();
 	}
 
-	void processCommand(u8 cmd, CBitStream @params)
+	void processCommand(u8 cmd, CBitStream@ params) override
 	{
 		if(cmd == blob.getCommandID("Ppush"))
 		{
@@ -185,9 +204,11 @@ class Force : IEffectMode
 		{
 			this._power = params.read_f32();
 		}
+
+		CEffectMode::processCommand(cmd, @params);
 	}
 
-	void render(CSprite@ sprite, f32 scale)
+	void render(CSprite@ sprite, f32 scale) override
     {
 		if(getLocalPlayer() is blob.getPlayer())
 		{
@@ -216,5 +237,7 @@ class Force : IEffectMode
 			}
 			
 		}
+		
+		CEffectMode::render(@sprite,scale);
 	}
 }

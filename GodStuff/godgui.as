@@ -7,7 +7,7 @@ void onRender( CSprite@ this )
 
     CBlob@ blob = this.getBlob();
 
-    IEffectMode@ mode;
+    CEffectMode@ mode;
     blob.get("mode",@mode);
     if(mode !is null)
         mode.render(this,scale);

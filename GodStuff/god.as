@@ -6,16 +6,11 @@ void onInit(CBlob@ this)
 	Force mode;
     mode.init(this);
 	this.set("mode",@mode);
-
-    if(!this.hasScript("godgui.as"))
-    {
-        this.AddScript("godgui.as");
-    }
 }
 
 void onTick(CBlob@ this)
 {
-    IEffectMode@ mode;
+    CEffectMode@ mode;
 	this.get("mode",@mode);
     if(mode !is null)
 	mode.onTick();
@@ -23,7 +18,7 @@ void onTick(CBlob@ this)
 
 void onCommand( CBlob@ this, u8 cmd, CBitStream @params )
 {
-    IEffectMode@ mode;
+    CEffectMode@ mode;
 	this.get("mode",@mode);
     if(mode !is null)
     mode.processCommand(cmd, params);
