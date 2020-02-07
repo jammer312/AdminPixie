@@ -18,3 +18,10 @@ bool canBePickedUp( CBlob@ this, CBlob@ byBlob )
 {
     return false;
 }
+
+f32 onHit( CBlob@ this, Vec2f worldPoint, Vec2f velocity, f32 damage, CBlob@ hitterBlob, u8 customData )
+{
+    this.getSprite().PlaySound("pixiehit.ogg",1,(XORRandom(15)/10.0) + 0.5);
+
+    return 0;
+}
