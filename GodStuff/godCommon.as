@@ -98,7 +98,7 @@ class Force : CEffectMode
 				if(power == 11 && !dir)
 				{
 					cblob.setPosition(aimPos);
-					cblob.setVelocity(vec2f_zero);//this is so people don't fall to their deaths
+					cblob.setVelocity(Vec2f_zero);//this is so people don't fall to their deaths
 				}
 				else
 				{
