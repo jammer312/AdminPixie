@@ -1,3 +1,5 @@
+#include "godCommon"
+
 void onInit(CBlob@ this)
 {
     this.set_s32("rightTap",0);
@@ -94,16 +96,22 @@ void onTick(CMovement@ this)
     }
 
 
-    CControls@ controls = getControls();
-    if(controls.isKeyJustPressed(KEY_KEY_V))
+    IEffectMode@ mode;
+    b.get("mode",@mode);
+    if(mode.getType() != "music")
     {
-        b.set_bool("noclip",!b.get_bool("noclip"));
+        CControls@ controls = getControls();
+        if(controls.isKeyJustPressed(KEY_KEY_V))
+        {
+            b.set_bool("noclip",!b.get_bool("noclip"));
 
-        b.Sync("noclip", false);
+            b.Sync("noclip", false);
+        }
+        if(controls.isKeyJustPressed(KEY_KEY_G))
+        {
+            b.set_bool("gravity",!b.get_bool("gravity"));
+            b.Sync("gravity", false);
+        }
     }
-    if(controls.isKeyJustPressed(KEY_KEY_G))
-    {
-        b.set_bool("gravity",!b.get_bool("gravity"));
-        b.Sync("gravity", false);
-    }
+
 }
