@@ -280,6 +280,7 @@ void onTick(CBlob@ this)
 	this.get("mode",@mode);
 
     bool music_mode = mode.getType() == "music";
+	if(!music_mode){return;} //don't run if the power isn't selected
     if(checkControlKey(controls,0))
 	{
 			
