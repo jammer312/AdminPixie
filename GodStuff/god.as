@@ -1,4 +1,6 @@
 #include "godCommon.as"
+#include "CForce.as"
+#include "CMusic.as"
 
 void onInit(CBlob@ this)
 {
@@ -6,11 +8,11 @@ void onInit(CBlob@ this)
 
     this.set_f32("effectRadius", 8*5); //5 block radius
 
-	Force force;
+	CForce force;
     force.init(this);
     this.set("force",@force);
 
-    Music music;
+    CMusic music;
     music.init(this);
     this.set("music",@music);
 
