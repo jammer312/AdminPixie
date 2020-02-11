@@ -3,6 +3,7 @@
 class CForce : CEffectModeBase
 {
 	string getType() override {return "force";}
+	CInspect@ inspect;
 
 	f32 _power = 5;
 	f32 power
@@ -54,10 +55,11 @@ class CForce : CEffectModeBase
 	CParticle@[] particles;
 	bool particleFlipFlop = true;
 
-	void init(CBlob@ blob) override
+	void init(CBlob@ blob,CInspect@ inspect)
 	{
 		CEffectModeBase::init(@blob);
 
+		@this.inspect = inspect;
 		this.blob.addCommandID("Ppush");
 		this.blob.addCommandID("PeffectPlayers");
 		this.blob.addCommandID("Ppower");
@@ -77,6 +79,12 @@ class CForce : CEffectModeBase
 			for(int i = 0; i < blobs.length(); i++)
 			{
 				CBlob@ cblob = blobs[i];
+				if(inspect.selectedBlob !is null)
+				{
+					i = blobs.length(); //skip to the end
+					@cblob = inspect.selectedBlob;
+				}
+				
 				if(cblob.getPlayer() !is null && !effectPlayers) {continue;}
 
 				Vec2f pos = cblob.getPosition();
