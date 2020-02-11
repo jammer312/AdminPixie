@@ -18,6 +18,13 @@ class CInspect : CEffectModeBase
             if(_selectedBlob !is null)
             {
                 _selectedBlob.getSprite().setRenderStyle(RenderStyle::Style::shadow);
+                CBitStream params;
+                params.write_u16(_selectedBlob.getNetworkID());
+                blob.SendCommand(blob.getCommandID("setSelectedBlob"),params);
+            }
+            else
+            {
+                blob.SendCommand(blob.getCommandID("resetSelectedBlob"));
             }
         }
     }
@@ -27,6 +34,9 @@ class CInspect : CEffectModeBase
     void init(CBlob@ blob) override
     {
         @map = getMap();
+        blob.addCommandID("setSelectedBlob");
+        blob.addCommandID("resetSelectedBlob");
+
 
         CEffectModeBase::init(blob);
     }
@@ -66,6 +76,18 @@ class CInspect : CEffectModeBase
             {
                 hoveredBlob.getSprite().setRenderStyle(RenderStyle::Style::normal);
             }
+        }
+        else if(cmd == blob.getCommandID("setSelectedBlob"))
+        {
+            CBlob@ sblob = getBlobByNetworkID(params.read_u16());
+            if(sblob !is null)
+            {
+                @_selectedBlob = sblob;
+            }
+        }
+        else if(cmd == blob.getCommandID("resetSelectedBlob"))
+        {
+            @_selectedBlob = null;
         }
 
         CEffectModeBase::processCommand(cmd, @params);
