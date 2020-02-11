@@ -14,7 +14,7 @@ void onInit(CBlob@ this)
     this.set("inspect",@inspect);
 
 	CForce force;
-    force.init(this,@inspect);
+    force.init(this,@inspect);//force makes use of inspect
     this.set("force",@force);
 
     CMusic music;
