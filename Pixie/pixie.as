@@ -4,6 +4,7 @@ void onInit(CBlob@ this)
 {
     this.set_bool("gravity",false);
     this.set_bool("noclip",true);
+    this.Tag("invincible");
 }
 
 void onTick(CBlob@ this)
