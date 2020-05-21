@@ -3,23 +3,27 @@
 class CInspect : CEffectModeBase
 {
 	string getType(){return "Inspect";}
-    CBlob@ _selectedBlob;
+    uint _selectedBlob;
+    bool followingSelected = false;
+
+    Vec2f offset = Vec2f_zero;
+
     CBlob@ selectedBlob
     {
-        get{return _selectedBlob;}
+        get{return getBlobByNetworkID(_selectedBlob);}
         set
         {
-            if(_selectedBlob !is null)
+            if(getBlobByNetworkID(_selectedBlob) !is null)
             {
-                _selectedBlob.getSprite().setRenderStyle(RenderStyle::Style::normal);
+                getBlobByNetworkID(_selectedBlob).getSprite().setRenderStyle(RenderStyle::Style::normal);
             }
-
-            @_selectedBlob = value;
-            if(_selectedBlob !is null)
+            if(value is null){_selectedBlob = 0;}
+            else {_selectedBlob = value.getNetworkID();}
+            if(getBlobByNetworkID(_selectedBlob) !is null)
             {
-                _selectedBlob.getSprite().setRenderStyle(RenderStyle::Style::shadow);
+                getBlobByNetworkID(_selectedBlob).getSprite().setRenderStyle(RenderStyle::Style::shadow);
                 CBitStream params;
-                params.write_u16(_selectedBlob.getNetworkID());
+                params.write_u16(getBlobByNetworkID(_selectedBlob).getNetworkID());
                 blob.SendCommand(blob.getCommandID("setSelectedBlob"),params);
             }
             else
@@ -60,6 +64,17 @@ class CInspect : CEffectModeBase
             {
                 @selectedBlob = hoveredBlob;//it's ok if hoverBlob is null, allows to unselect something
             }
+            if(controls.isKeyJustPressed(KEY_KEY_L))
+            {
+                followingSelected = !followingSelected;
+            }
+        }
+
+        if(followingSelected && selectedBlob !is null)
+        {
+            offset.x = Maths::Sin(getGameTime()/10.5) * 4;
+            offset.y = Maths::Cos(getGameTime()/10) * 4;
+            blob.setPosition(selectedBlob.getPosition() + offset + Vec2f(0,-12));
         }
         CEffectModeBase::onTick();
     }
@@ -82,12 +97,12 @@ class CInspect : CEffectModeBase
             CBlob@ sblob = getBlobByNetworkID(params.read_u16());
             if(sblob !is null)
             {
-                @_selectedBlob = sblob;
+                _selectedBlob = sblob.getNetworkID();
             }
         }
         else if(cmd == blob.getCommandID("resetSelectedBlob"))
         {
-            @_selectedBlob = null;
+            _selectedBlob = 0;
         }
 
         CEffectModeBase::processCommand(cmd, @params);
