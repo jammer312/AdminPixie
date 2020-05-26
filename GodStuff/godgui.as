@@ -9,6 +9,8 @@ void onRender( CSprite@ this )
 
     IEffectMode@ mode;
     blob.get("mode",@mode);
-    if(mode !is null)
+    if(mode !is null && !blob.hasTag("nogod"))
+    {
         mode.render(this,scale);
+    }
 }

@@ -22,14 +22,18 @@ void onInit(CBlob@ this)
     this.set("music",@music);
 
 	this.set("mode",@force);
+
+    this.addCommandID("removegod");
 }
 
 void onTick(CBlob@ this)
 {
     IEffectMode@ mode;
 	this.get("mode",@mode);
-    if(mode !is null)
-	mode.onTick();
+    if(mode !is null || this.hasTag("nogod"))
+	{
+        mode.onTick();
+    }
 
     if(this.getPlayer() !is null && this.getPlayer().isLocal())
     {
@@ -84,5 +88,11 @@ void onCommand( CBlob@ this, u8 cmd, CBitStream @params )
             this.get("inspect",@mode);
             this.set("mode",@mode);
         }
+    }
+    else if(cmd == this.getCommandID("removegod"))
+    {
+        this.RemoveScript("godgui.as");
+        this.RemoveScript("god.as");
+        this.Tag("nogod");
     }
 }
