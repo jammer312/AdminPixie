@@ -1,6 +1,4 @@
-
-
-class CInspect : CEffectModeBase
+shared class CInspect : CEffectModeBase
 {
 	string getType(){return "Inspect";}
     uint _selectedBlob;

@@ -1,4 +1,4 @@
-interface IEffectMode
+shared interface IEffectMode
 {
 	string getType();
 	void init(CBlob@ blob);
@@ -7,7 +7,7 @@ interface IEffectMode
 	void processCommand(u8 cmd, CBitStream @params);
 }
 
-class CEffectModeBase : IEffectMode
+shared class CEffectModeBase : IEffectMode
 {
 	string getType() {return "base";}
 
