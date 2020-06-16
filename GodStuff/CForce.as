@@ -1,6 +1,6 @@
 #include "godCommon.as"
 
-class CForce : CEffectModeBase
+shared class CForce : CEffectModeBase
 {
 	string getType() override {return "force";}
 	CInspect@ inspect;
