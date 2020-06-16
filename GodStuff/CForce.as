@@ -76,12 +76,12 @@ class CForce : CEffectModeBase
 			CBlob@[] blobs;
 			CMap@ map = getMap();
 			map.getBlobsInRadius(blob.getAimPos(),effectRadius,@blobs);
-			for(int i = 0; i < blobs.length(); i++)
+			for(int i = 0; i < blobs.size(); i++)
 			{
 				CBlob@ cblob = blobs[i];
 				if(inspect.selectedBlob !is null)
 				{
-					i = blobs.length(); //skip to the end
+					i = blobs.size(); //skip to the end
 					@cblob = inspect.selectedBlob;
 				}
 				
@@ -120,7 +120,7 @@ class CForce : CEffectModeBase
 					particles.push_back(p);
 				}
 			}
-			for(int a = 0; a < particles.length(); a++)
+			for(int a = 0; a < particles.size(); a++)
 			{
 				CParticle@ particle = particles[a];
 				//check
